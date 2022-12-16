@@ -83,7 +83,7 @@ function perlimports(doc: TextDocument, code: string, settings: NavigatorSetting
     cliParams = cliParams.concat(['--filename', Uri.parse(doc.uri).fsPath]);
 
     try {
-        const output = execFileSync(settings.perlPath, cliParams, {timeout: 25000, input: code}).toString();
+        const output = execFileSync(settings.perlPath, settings.perlParams.concat(cliParams), {timeout: 25000, input: code}).toString();
         return output;
     } catch(error: any) {
         nLog("Attempted to run perlimports tidy " + error.stdout, settings);
@@ -100,7 +100,7 @@ function perltidy(code: string, settings: NavigatorSettings, workspaceFolders: W
 
     let output: string | Buffer;
     try {
-        output = execFileSync(settings.perlPath, tidyParams, {timeout: 25000, input: code});
+        output = execFileSync(settings.perlPath, settings.perlParams.concat(tidyParams), {timeout: 25000, input: code});
         output = output.toString();
     } catch(error: any) {
         nLog("Perltidy failed with unknown error", settings);
