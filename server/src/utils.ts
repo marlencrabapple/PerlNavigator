@@ -67,9 +67,16 @@ export function getSymbol(position: Position, txtDoc: TextDocument) {
     let left = index - 1;
     let right = index;
 
+    if(right < text.length && ( ["$", "%", "@"].includes(text[right]) || rightAllow(text[right])) ){
+        // Handles an edge case where the cursor is on the side of a symbol.
+        // Note that $foo| should find $foo (where | represents cursor), but $foo|$bar should find $bar, and |mysub should find mysub
+        right += 1;
+        left += 1;
+    }
+
     while (left >= 0 && leftAllow(text[left])) {
-        // Fat comma check
-        if (text[left] === ">" && left - 1 >= 0 && text[left - 1] === "=") { break; }
+        // Allow for ->, but not => or > (e.g. $foo->bar, but not $foo=>bar or $foo>bar) 
+        if (text[left] === ">" && left - 1 >= 0 && text[left - 1] !== "-") { break; }
         left -= 1;
     }
     left = Math.max(0, left + 1);

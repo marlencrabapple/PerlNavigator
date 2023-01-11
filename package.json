@@ -4,7 +4,7 @@
 	"description": "Code navigation, autocompletion, syntax checking, and linting for Perl",
 	"author": "bscan",
 	"license": "MIT",
-	"version": "0.4.6",
+	"version": "0.4.7",
 	"icon": "images/camel_icon.png",
 	"repository": {
 		"type": "git",
@@ -238,6 +238,48 @@
 				"injectTo": [
 				  "source.perl"
 				],
+				"scopeName": "source.perl.package.trycatch",
+				"path": "./syntaxes/trycatch.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
+				"scopeName": "source.perl.package.v536",
+				"path": "./syntaxes/v536.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
+				"scopeName": "source.perl.package.v510",
+				"path": "./syntaxes/v510.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
+				"scopeName": "source.perl.package.isa",
+				"path": "./syntaxes/isa.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
+				"scopeName": "source.perl.package.state",
+				"path": "./syntaxes/state.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
+				"scopeName": "source.perl.package.defer",
+				"path": "./syntaxes/defer.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
 				"scopeName": "source.perl.package.funcparams",
 				"path": "./syntaxes/funcparams.json"
 			},
@@ -247,6 +289,13 @@
 				],
 				"scopeName": "source.perl.package.dios",
 				"path": "./syntaxes/dios.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
+				"scopeName": "source.perl.package.match",
+				"path": "./syntaxes/match.json"
 			}
 		]
 	},
