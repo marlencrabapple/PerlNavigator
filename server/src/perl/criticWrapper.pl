@@ -14,14 +14,15 @@ if ( !eval{ require PPI; require Perl::Critic; 1} ){
     # Quit early is fine, but needs to happen after fully reading STDIN due to a pipe issue on MacOS.
     exit(0);
 }
-=head
 
-my $foo =2;
-=cut
-
-my ($file, $profile);
-GetOptions ("file=s"    => \$file,
-            "profile=s" => \$profile);
+my ($file, $profile, $severity, $theme, $exclude, $include);
+GetOptions ("file=s"     => \$file,
+            "profile=s"  => \$profile,
+            "severity=s" => \$severity,
+            "theme=s"    => \$theme,
+            "exclude=s"  => \$exclude,
+            "include=s"  => \$include,
+            );
 
 die("Did not pass any source via stdin") if !defined($sSource);
 
@@ -30,12 +31,16 @@ $profile = resolve_profile($profile);
 # Do not check for readability of the source $file since we never actually read it. Only checking the name for policy violations.
 print "Perlcritic on $file and using profile $profile \n";
 $sSource =~ s/([^\x00-\x7F])/AsciiReplacementChar($1)/ge;
+$sSource = adjustForKeywords($sSource);
 
 my $doc = PPI::Document->new( \$sSource);
 
 $doc->{filename} = $file;
 
-my $critic = Perl::Critic->new( -profile => $profile);
+my $exclude_ref = $exclude ? [$exclude] : [] ;
+my $include_ref = $include ? [$include] : [] ;
+
+my $critic = Perl::Critic->new( -profile => $profile, -severity => $severity, -theme => $theme, -exclude => $exclude_ref, -include => $include_ref);
 Perl::Critic::Violation::set_format("%s~|~%l~|~%c~|~%m~|~%p~||~");
 
 my @violations = $critic->critique($doc);
@@ -45,7 +50,18 @@ foreach my $viol (@violations){
     print "$viol\n";
 }
 
+sub adjustForKeywords {
+    # PPI can't handle Keywords like `async` or `method`. This is a couple of hacks to make it work.
+    $sSource = shift;
 
+    # Change `async sub` to `sub`
+    $sSource =~ s/^\h*async\h+sub\h/ sub /gm;
+
+    # Change `method` to `sub`, unless it's private like `method $foo``
+    $sSource =~ s/^\h*method\h(?=\h*\w)/ sub /gm;
+
+    return $sSource;
+}
 
 sub AsciiReplacementChar {
     # Tries to find ascii replacements for non-ascii characters.

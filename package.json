@@ -4,7 +4,7 @@
 	"description": "Code navigation, autocompletion, syntax checking, and linting for Perl",
 	"author": "bscan",
 	"license": "MIT",
-	"version": "0.4.7",
+	"version": "0.5.4",
 	"icon": "images/camel_icon.png",
 	"repository": {
 		"type": "git",
@@ -22,6 +22,7 @@
 		"onLanguage:perl"
 	],
 	"main": "./client/out/extension",
+	"browser": "./client/dist/browserClientMain",
 	"contributes": {
 		"configuration": {
 			"type": "object",
@@ -80,6 +81,26 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Enable perl critic."
+				},
+				"perlnavigator.perlcriticSeverity": {
+					"scope": "resource",
+					"type": "number",
+					"description": "Override severity level for perl critic (normally in profile)"
+				},
+				"perlnavigator.perlcriticTheme": {
+					"scope": "resource",
+					"type": "string",
+					"description": "Override theme for perl critic (normally in profile)"
+				},
+				"perlnavigator.perlcriticExclude": {
+					"scope": "resource",
+					"type": "string",
+					"description": "Regex pattern with policies to exclude for perl critic (normally in profile)"
+				},
+				"perlnavigator.perlcriticInclude": {
+					"scope": "resource",
+					"type": "string",
+					"description": "Regex pattern with policies to include for perl critic (normally in profile)"
 				},
 				"perlnavigator.severity5": {
 					"scope": "resource",
@@ -280,6 +301,13 @@
 				"injectTo": [
 				  "source.perl"
 				],
+				"scopeName": "source.perl.package.dynamically",
+				"path": "./syntaxes/dynamically.json"
+			},
+			{
+				"injectTo": [
+				  "source.perl"
+				],
 				"scopeName": "source.perl.package.funcparams",
 				"path": "./syntaxes/funcparams.json"
 			},
@@ -303,26 +331,37 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -b",
 		"watch": "tsc -b -w",
+		"web-compile": "export NODE_OPTIONS=--openssl-legacy-provider; webpack",
+		"web-watch": "export NODE_OPTIONS=--openssl-legacy-provider; webpack --watch",
+		"package": "export NODE_OPTIONS=--openssl-legacy-provider; webpack --mode production --devtool hidden-source-map",
 		"install-client": "cd client && npm install",
 		"install-server": "cd server && npm install",
-		"postinstall": "npm run-script install-client && npm run-script install-server",
+		"install-browser": "cd browser-ext && npm install",
+		"postinstall": "npm run-script install-client && npm run-script install-server && npm run-script install-browser",
 		"ci-client": "cd client && npm ci",
 		"ci-server": "cd server && npm ci",
 		"ci-all": "npm ci && npm run ci-client && npm run ci-server",
 		"clean": "rm -rf ./node-modules ./server/node-modules ./client/node-modules",
 		"foo": "(cd client && npm ci && cd ../); (cd server && npm c )",
 		"test": "sh ./scripts/e2e.sh",
-		"build-binary": "tsc -b && pkg ."
+		"build-binary": "tsc -b && pkg .",
+		"open-in-browser": "vscode-test-web --browser=none --extensionDevelopmentPath=. ."
 	},
 	"devDependencies": {
 		"@types/mocha": "^10.0.1",
 		"@types/node": "^12.12.0",
 		"@typescript-eslint/eslint-plugin": "^4.23.0",
 		"@typescript-eslint/parser": "^4.23.0",
+		"@types/webpack-env": "^1.16.0",
+		"@vscode/test-web": "*",
 		"eslint": "^7.26.0",
 		"mocha": "^10.1.0",
 		"pkg": "^5.5.2",
-		"typescript": "^4.2.3"
+		"typescript": "^4.8.4",
+		"webpack": "^5.38.1",
+		"webpack-cli": "^4.7.0",
+		"ts-loader": "^9.3.0",
+		"path-browserify": "^1.0.1"
 	},
 	"bin": "server/out/server.js",
 	"pkg": {

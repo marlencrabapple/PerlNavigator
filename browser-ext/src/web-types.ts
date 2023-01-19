@@ -4,13 +4,12 @@
 
 import {
     Diagnostic,
-} from 'vscode-languageserver/node';
+} from 'vscode-languageserver/browser';
 
 
 
 export interface NavigatorSettings {
     perlPath: string;
-    perlParams: string[];
     enableWarnings: boolean;
     perlcriticProfile: string;
     perlcriticEnabled: boolean;
@@ -38,7 +37,7 @@ export interface NavigatorSettings {
 
 export interface PerlElem {
     name: string,
-    type: PerlSymbolKind;
+    type: PerlSymbolKind,
     typeDetail: string,
     file: string;
     package: string;
@@ -90,7 +89,7 @@ export enum PerlSymbolKind {
     Label        = "l",
     Phaser       = "e",
     Canonical    = "1",
-    // UseStatement = "u" . Reserved: used in pltags, but removed before symbol assignment.
+    // UseStatement = "u", // Reserved: used in pltags, but removed before symbol assignment.
     ImportedVar  = "c",
     ImportedHash = "h",
 }

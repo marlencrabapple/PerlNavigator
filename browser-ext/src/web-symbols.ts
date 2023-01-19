@@ -1,15 +1,9 @@
 import {
     SymbolInformation,
-    Range,
     SymbolKind,
     Location,
-    WorkspaceSymbolParams
 } from 'vscode-languageserver/node';
-import { PerlDocument, PerlElem, PerlSymbolKind } from "./types";
-import Uri from 'vscode-uri';
-import { realpathSync, existsSync } from 'fs';
-import { Console } from 'console';
-
+import { PerlDocument, PerlElem, PerlSymbolKind } from "./web-types";
 
 function waitForDoc (navSymbols: any, uri: string): Promise<PerlDocument> {
     let retries = 0;
@@ -80,37 +74,8 @@ export function getSymbols (navSymbols: any, uri: string ): Promise<SymbolInform
         return symbols;
     }).catch((reason)=>{
         // TODO: Add logging back, but detect STDIO mode first
-        // console.log("Failed in getSymbols");
-        //console.log(reason);
+        console.log("Failed in getSymbols");
+        console.log(reason);
         return [];
-    });
-}
-
-export function getWorkspaceSymbols (params: WorkspaceSymbolParams, defaultMods:  Map<string, string>): Promise<SymbolInformation[]> {
-    
-    return new Promise((resolve, reject) => {
-        let symbols: SymbolInformation[] = [];
-
-        const lcQuery = params.query.toLowerCase();
-        defaultMods.forEach((modUri: string, modName: string) => {
-            if(true){ // Just send the whole list and let the client sort through it with fuzzy search
-            // if(!lcQuery || modName.toLowerCase().startsWith(lcQuery)){ 
-
-                const location: Location = {
-                    range: {
-                        start: { line: 0, character: 0 },
-                        end: { line: 0, character: 100 }  
-                    },
-                    uri: modUri
-                };
-
-                symbols.push({
-                    name: modName,
-                    kind: SymbolKind.Module,
-                    location: location
-                });
-            }
-        });
-        resolve(symbols);
     });
 }
