@@ -84,11 +84,7 @@ async function perlimports(doc: TextDocument, code: string, settings: NavigatorS
     nLog("Now starting perlimports with: " + cliParams.join(" "), settings);
 
     try {
-<<<<<<< HEAD
-        const output = execFileSync(settings.perlPath, settings.perlParams.concat(cliParams), {timeout: 25000, input: code}).toString();
-        return output;
-=======
-        const process = async_execFile(settings.perlPath, cliParams, {timeout: 25000, maxBuffer: 20 * 1024 * 1024});
+        const process = async_execFile(settings.perlPath, settings.perlParams.concat(cliParams), {timeout: 25000, maxBuffer: 20 * 1024 * 1024});
         process?.child?.stdin?.on('error', (error: any) => { 
             nLog("perlImports Error Caught: ", settings);
             nLog(error, settings);
@@ -97,7 +93,6 @@ async function perlimports(doc: TextDocument, code: string, settings: NavigatorS
         process?.child?.stdin?.end();
         const out = await process;
         return out.stdout;
->>>>>>> bscan/main
     } catch(error: any) {
         nLog("Attempted to run perlimports tidy " + error.stdout, settings);
         return;
@@ -113,11 +108,7 @@ async function perltidy(code: string, settings: NavigatorSettings, workspaceFold
 
     let output: string | Buffer;
     try {
-<<<<<<< HEAD
-        output = execFileSync(settings.perlPath, settings.perlParams.concat(tidyParams), {timeout: 25000, input: code});
-        output = output.toString();
-=======
-        const process = async_execFile(settings.perlPath, tidyParams, {timeout: 25000, maxBuffer: 20 * 1024 * 1024});
+        const process = async_execFile(settings.perlPath, settings.perlParams.concat(tidyParams), {timeout: 25000, maxBuffer: 20 * 1024 * 1024});
         process?.child?.stdin?.on('error', (error: any) => { 
             nLog("PerlTidy Error Caught: ", settings);
             nLog(error, settings);
@@ -126,7 +117,6 @@ async function perltidy(code: string, settings: NavigatorSettings, workspaceFold
         process?.child?.stdin?.end();
         const out = await process;
         output = out.stdout;
->>>>>>> bscan/main
     } catch(error: any) {
         nLog("Perltidy failed with unknown error", settings);
         nLog(error, settings);
