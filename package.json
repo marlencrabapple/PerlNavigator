@@ -21,7 +21,7 @@
 	"activationEvents": [
 		"onLanguage:perl"
 	],
-	"main": "./client/out/extension",
+	"main": "./client/dist/clientMain",
 	"browser": "./client/dist/browserClientMain",
 	"contributes": {
 		"configuration": {
@@ -33,6 +33,12 @@
 					"type": "string",
 					"default": "perl",
 					"description": "Full path to the perl executable (no aliases, .bat files or ~/)"
+				},
+				"perlnavigator.perlParams": {
+					"scope": "resource",
+					"type": "array",
+					"default": [],
+					"description": "Command line arguments to pass to the perl executable"
 				},
 				"perlnavigator.enableWarnings": {
 					"scope": "resource",
@@ -328,7 +334,7 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
+		"vscode:prepublish": "npm run package",
 		"compile": "tsc -b",
 		"watch": "tsc -b -w",
 		"web-compile": "export NODE_OPTIONS=--openssl-legacy-provider; webpack",
@@ -350,22 +356,22 @@
 	"devDependencies": {
 		"@types/mocha": "^10.0.1",
 		"@types/node": "^12.12.0",
+		"@types/webpack-env": "^1.16.0",
 		"@typescript-eslint/eslint-plugin": "^4.23.0",
 		"@typescript-eslint/parser": "^4.23.0",
-		"@types/webpack-env": "^1.16.0",
 		"@vscode/test-web": "*",
 		"eslint": "^7.26.0",
 		"mocha": "^10.1.0",
+		"path-browserify": "^1.0.1",
 		"pkg": "^5.5.2",
-		"typescript": "^4.8.4",
-		"webpack": "^5.38.1",
-		"webpack-cli": "^4.7.0",
 		"ts-loader": "^9.3.0",
-		"path-browserify": "^1.0.1"
+		"typescript": "^4.9.4",
+		"webpack": "^5.38.1",
+		"webpack-cli": "^4.7.0"
 	},
-	"bin": "server/out/server.js",
+	"bin": "server/dist/serverMain.js",
 	"pkg": {
-		"scripts": "server/out/server.js",
+		"scripts": "server/dist/serverMain.js",
 		"assets": "server/src/**/*",
 		"targets": [
 			"node14-linux-x64",
