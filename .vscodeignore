@@ -1,0 +1,8 @@
+**/*
+!images/camel_icon.png
+!syntaxes
+!LICENSE
+!client/dist/*
+!server/dist/*
+!server/src/perl
+!perlimports.toml
