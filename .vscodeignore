@@ -5,6 +5,6 @@
 !client/dist/*
 !server/dist/*
 !server/src/perl
-!perlimports.toml
 !server/perl.tmLanguage.json
 !server/node_modules/vscode-oniguruma/release/onig.wasm
+!perlimports.toml
