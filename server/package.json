@@ -20,7 +20,9 @@
 		"vscode-textmate": "^9.0.0",
 		"vscode-oniguruma": "^2.0.1"
 	},
-	"scripts": {},
+	"scripts": {
+		"test": "jest"
+	},
 	"main": "./src/dist/serverMain.js",
 	"bin": {
 		"perlnavigator": "./bin/perlnavigator"
