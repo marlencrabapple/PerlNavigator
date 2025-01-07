@@ -12,13 +12,14 @@
 		"url": "https://github.com/bscan"
 	},
 	"dependencies": {
-		"vscode-languageserver": "^7.0.0",
-		"vscode-languageserver-textdocument": "^1.0.1",
-		"vscode-uri": "^1.0.1",
+		"jest": "^30.0.5",
 		"lru-cache": "^6.0.0",
 		"nanoid": "^3.1.31",
+		"vscode-languageserver": "^7.0.0",
+		"vscode-languageserver-textdocument": "^1.0.1",
+		"vscode-oniguruma": "^2.0.1",
 		"vscode-textmate": "^9.0.0",
-		"vscode-oniguruma": "^2.0.1"
+		"vscode-uri": "^1.0.1"
 	},
 	"scripts": {
 		"test": "jest"
@@ -28,7 +29,9 @@
 		"perlnavigator": "./bin/perlnavigator"
 	},
 	"devDependencies": {
+		"@types/jest": "^30.0.0",
 		"@types/node": "^18.19.41",
+		"ts-jest": "^29.4.0",
 		"typescript": "^4.8.4"
 	},
 	"keywords": [
