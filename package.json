@@ -416,5 +416,8 @@
 			"node16-win-x64"
 		],
 		"outputPath": "dist"
+	},
+	"dependencies": {
+		"lru-cache": "^11.1.0"
 	}
 }

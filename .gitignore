@@ -6,3 +6,7 @@ client/server
 .vscode-test
 .vscode-test-web
 dist
+*.vsix
+*manifest*
+PerlNavigator
+
