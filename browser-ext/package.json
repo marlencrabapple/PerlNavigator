@@ -12,10 +12,11 @@
 		"url": "https://github.com/Microsoft/vscode-extension-samples"
 	},
 	"dependencies": {
+		"lru-cache": "^11.1.0",
 		"vscode-languageserver": "^7.0.0",
 		"vscode-languageserver-textdocument": "^1.0.1",
-		"vscode-textmate": "^9.0.0",
-		"vscode-oniguruma": "^2.0.1"
+		"vscode-oniguruma": "^2.0.1",
+		"vscode-textmate": "^9.0.0"
 	},
 	"scripts": {}
 }

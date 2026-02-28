@@ -266,7 +266,7 @@ function look_ahead_signatures(state: ParserState): string[] {
 function labels(state: ParserState): boolean {
     let match;
     // Phaser block
-    if ((match = state.stmt.match(/^(BEGIN|INIT|CHECK|UNITCHECK|END)\s*\{/))) {
+    if ((match = state.stmt.match(/^(BEGIN|INIT|CHECK|UNITCHECK|END|ADJUST)\s*\{/))) {
         const phaser = match[1];
         const endLine = SubEndLine(state);
 
@@ -591,7 +591,7 @@ function PackageEndLine(state: ParserState) {
     }
 
     // If we didn't find an end, run until end of file
-    return state.codeArray.length;
+    return state.codeArray.length - 1;
 }
 
 // we first try to find by absolute path, which is needed in webpack

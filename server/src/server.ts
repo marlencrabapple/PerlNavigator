@@ -51,6 +51,8 @@ const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let hasConfigurationCapability = false;
 let hasWorkspaceFolderCapability = false;
+let rootUri: string | null = null;
+
 
 connection.onInitialize(async (params: InitializeParams) => {
     const capabilities = params.capabilities;
@@ -87,6 +89,10 @@ connection.onInitialize(async (params: InitializeParams) => {
                 supported: true,
             },
         };
+    } else {
+        if (params.rootUri) {
+            rootUri = params.rootUri;
+        }
     }
     await getPerlAssetsPath(); // Ensures assets are unpacked. Should this be in onInitialized?
     return result;
@@ -114,6 +120,7 @@ const defaultSettings: NavigatorSettings = {
     perlcriticTheme: undefined,
     perlcriticExclude: undefined,
     perlcriticInclude: undefined,
+    perlcriticMessageFormat: "%m",
     perlimportsLintEnabled: false,
     perlimportsTidyEnabled: false,
     perltidyEnabled: true,
@@ -183,15 +190,27 @@ async function dispatchForMods(textDocument: TextDocument) {
 }
 
 async function getWorkspaceFoldersSafe(): Promise<WorkspaceFolder[]> {
-    try {
-        const workspaceFolders = await connection.workspace.getWorkspaceFolders();
-        if (!workspaceFolders) {
+    if (hasWorkspaceFolderCapability) {
+        try {
+            const workspaceFolders = await connection.workspace.getWorkspaceFolders();
+            if (!workspaceFolders) {
+                return [];
+            } else {
+                return workspaceFolders;
+            }
+        } catch (error) {
             return [];
-        } else {
-            return workspaceFolders;
         }
-    } catch (error) {
-        return [];
+    } else {
+        if (rootUri) {
+            const dummyFolder: WorkspaceFolder = {
+                uri: rootUri,
+                name: rootUri,
+            };
+            return [dummyFolder];
+        } else {
+            return [];
+        }
     }
 }
 
