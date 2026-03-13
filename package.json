@@ -390,7 +390,11 @@
 		"foo": "(cd client && npm ci && cd ../); (cd server && npm c )",
 		"test": "sh ./scripts/e2e.sh",
 		"build-binary": "npm run web-compile && pkg .",
-		"open-in-browser": "vscode-test-web --browser=none --extensionDevelopmentPath=. ."
+		"open-in-browser": "vscode-test-web --browser=none --extensionDevelopmentPath=. .",
+		"update:server": "(cd server && npm install && npm update)",
+		"update:client": "(cd client && npm install && npm update)",
+		"update:browser-ext": "(cd browser-ext && npm install && npm update)",
+		"update:all": "npm update && npm run 'update:server' && npm run 'update:client'"
 	},
 	"devDependencies": {
 		"@types/mocha": "^10.0.1",
