@@ -394,7 +394,7 @@
 		"update:server": "(cd server && npm install && npm update)",
 		"update:client": "(cd client && npm install && npm update)",
 		"update:browser-ext": "cd browser-ext && npm install && npm update)",
-		"update:all": "npm update && npm run 'update:server' && npm run 'update:client'"
+		"update:all": "npm update && npm run 'update:server' && npm run 'update:client' && npm run 'update:browser-ext'"
 	},
 	"devDependencies": {
 		"@types/mocha": "^10.0.1",
