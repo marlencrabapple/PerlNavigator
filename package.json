@@ -115,22 +115,22 @@
 					"type": "string",
 					"description": "Regex pattern with policies to exclude for perl critic (normally in profile)"
 				},
-                                "perlnavigator.perlcriticInclude": {
-                                        "scope": "resource",
-                                        "type": "string",
-                                        "description": "Regex pattern with policies to include for perl critic (normally in profile)"
-                                },
-                                "perlnavigator.perlcriticMessageFormat": {
-                                        "scope": "resource",
-                                        "type": "string",
-                                        "default": "%m",
-                                        "description": "Format for Perl::Critic messages. Use %e to include policy explanations"
-                                },
-                                "perlnavigator.perlCompileEnabled": {
-                                        "scope": "resource",
-                                        "type": "boolean",
-                                        "default": true,
-                                        "description": "Enable running perl -c on your code"
+				"perlnavigator.perlcriticInclude": {
+					"scope": "resource",
+					"type": "string",
+					"description": "Regex pattern with policies to include for perl critic (normally in profile)"
+				},
+				"perlnavigator.perlcriticMessageFormat": {
+					"scope": "resource",
+					"type": "string",
+					"default": "%m",
+					"description": "Format for Perl::Critic messages. Use %e to include policy explanations"
+				},
+				"perlnavigator.perlCompileEnabled": {
+					"scope": "resource",
+					"type": "boolean",
+					"default": true,
+					"description": "Enable running perl -c on your code"
 				},
 				"perlnavigator.severity5": {
 					"scope": "resource",
@@ -393,6 +393,7 @@
 		"open-in-browser": "vscode-test-web --browser=none --extensionDevelopmentPath=. .",
 		"update:server": "(cd server && npm install && npm update)",
 		"update:client": "(cd client && npm install && npm update)",
+		"update:browser-ext": "cd browser-ext && npm install && npm update)",
 		"update:all": "npm update && npm run 'update:server' && npm run 'update:client'"
 	},
 	"devDependencies": {
@@ -403,7 +404,7 @@
 		"@typescript-eslint/parser": "^4.23.0",
 		"@vscode/test-web": "*",
 		"eslint": "^7.26.0",
-		"mocha": "^10.2.0",
+		"mocha": "^11.7.5",
 		"path-browserify": "^1.0.1",
 		"pkg": "^5.8.0",
 		"ts-loader": "^9.3.0",
