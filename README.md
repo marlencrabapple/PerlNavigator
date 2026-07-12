@@ -58,7 +58,7 @@ Due to implementation limitations, perlimports requires a saved version of the f
 
 ## Installation For Other Editors
 ### Homebrew
-If you use Homebrew, installing PerlNavigator is straightforward. Run the following command to get started:
+To use PerlNavigator with Homebrew, run the following command:
 ```sh
 brew install perlnavigator
 ```
