@@ -57,8 +57,14 @@ Due to implementation limitations, perlimports requires a saved version of the f
 
 
 ## Installation For Other Editors
+### Homebrew
+If you use Homebrew, installing PerlNavigator is straightforward. Run the following command to get started:
+```sh
+brew install perlnavigator
+```
+
 ### Using NPM
-The easiest way to install is using npm
+To use PerlNavigator with NPM, run the following command:
 ```sh
 sudo npm install -g perlnavigator-server
 ```
@@ -256,4 +262,3 @@ For those interested in a Raku language server, check out: https://github.com/bs
 ## Licenses / Acknowledgments
 The Perl Navigator is free software licensed under the MIT License. It has a number of bundled dependencies as well, all of which have their respective open source licenses included.
 This work is only possible due to Class::Inspector, Devel::Symdump, Perl::Critic, PPI, Perl::Tidy, perlimports, Sub::Util, Perl itself, Microsoft LSP libraries, and ideas from Perl::LanguageServer and PLS.
-
